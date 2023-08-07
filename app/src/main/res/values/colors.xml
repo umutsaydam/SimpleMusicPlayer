@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="background">#191a2e</color>
+    <color name="listed_music">#27283E</color>
+    <color name="selected_music">#2f3255</color>
+    <color name="listed_music_sub_info">#4e507a</color>
+</resources>
