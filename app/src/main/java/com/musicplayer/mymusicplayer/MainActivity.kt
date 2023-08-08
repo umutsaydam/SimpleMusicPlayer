@@ -8,10 +8,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.musicplayer.mymusicplayer.Adapter.MusicAdapter
+import com.musicplayer.mymusicplayer.Fragment.PlayerFragment
 import com.musicplayer.mymusicplayer.Model.Music
 import com.musicplayer.mymusicplayer.databinding.ActivityMainBinding
 
@@ -85,6 +85,8 @@ class MainActivity : AppCompatActivity(), MusicAdapter.MusicClickListener {
     }
 
     override fun onItemClickListener(music: Music) {
-       
+        supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, PlayerFragment())
+            .commit()
+
     }
 }

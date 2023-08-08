@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <Toolbar
@@ -32,69 +31,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.85"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/music_item" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <FrameLayout
+        android:id="@+id/fragmentContainer"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_weight="0.15"
-        android:paddingTop="5dp"
-        android:background="@color/listed_music"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/ic_play_bg"
-                android:padding="10dp"
-                android:src="@drawable/ic_pause" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_weight="0.7"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/msName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Dog in the car"
-                    android:textColor="@color/white"
-                    android:textSize="19sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/msArtist"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TLinh"
-                    android:textColor="@color/listed_music_sub_info"
-                    android:textSize="16sp" />
-            </LinearLayout>
-        </LinearLayout>
-
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:max="100"
-            android:progress="50"/>
-
-    </LinearLayout>
-
-
-</LinearLayout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

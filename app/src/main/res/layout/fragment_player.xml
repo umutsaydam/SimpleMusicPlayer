@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.musicplayer.mymusicplayer.SingleViewTouchableMotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:appx="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/audioMotionLayout"
+    layoutDescription="@xml/fragment_player_scene"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    appx:layoutDescription="@xml/fragment_player_scene"
+    tools:context=".Fragment.PlayerFragment">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/playerBackground"
+        android:layout_width="0dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="20dp"
+        app:cardBackgroundColor="@color/selected_music"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/audioImage"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:elevation="10dp"
+        android:background="@drawable/ic_play_pause_bg"
+        android:src="@drawable/ic_music"
+        app:layout_constraintBottom_toBottomOf="@id/playerBackground"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintStart_toStartOf="@id/playerBackground"
+        app:layout_constraintTop_toTopOf="@id/playerBackground"/>
+
+    <TextView
+        android:id="@+id/audioName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:elevation="10dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/artistName"
+        app:layout_constraintEnd_toStartOf="@+id/prevImageView"
+        app:layout_constraintStart_toEndOf="@+id/audioImage"
+        app:layout_constraintTop_toTopOf="@+id/audioImage"
+        tools:text="Music" />
+
+    <TextView
+        android:id="@+id/artistName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:elevation="10dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/audioImage"
+        app:layout_constraintEnd_toStartOf="@+id/prevImageView"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/audioName"
+        app:layout_constraintTop_toBottomOf="@+id/audioName"
+        tools:text="Artist" />
+
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:max="100"
+        android:progressTint="@color/white"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:progress="50"
+        android:elevation="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/playPauseLayout"/>
+
+    <ImageView
+        android:id="@+id/prevImageView"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="10dp"
+        android:elevation="10dp"
+        android:src="@android:drawable/ic_media_previous"
+        app:layout_constraintBottom_toBottomOf="@+id/playPauseLayout"
+        app:layout_constraintEnd_toStartOf="@id/playPauseLayout"
+        app:layout_constraintTop_toTopOf="@+id/playPauseLayout" />
+
+    <FrameLayout
+        android:id="@+id/playPauseLayout"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="10dp"
+        android:elevation="10dp"
+        android:outlineProvider="none"
+        app:layout_constraintBottom_toBottomOf="@+id/playerBackground"
+        app:layout_constraintEnd_toStartOf="@+id/nextImageView"
+        app:layout_constraintTop_toTopOf="@+id/playerBackground">
+
+        <ImageView
+            android:id="@+id/play_pause_image_view"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            app:srcCompat="@android:drawable/ic_media_pause" />
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/nextImageView"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="10dp"
+        android:elevation="10dp"
+        android:src="@android:drawable/ic_media_next"
+        app:layout_constraintBottom_toBottomOf="@+id/playPauseLayout"
+        app:layout_constraintEnd_toEndOf="@id/playerBackground"
+        app:layout_constraintTop_toTopOf="@+id/playPauseLayout" />
+
+</com.musicplayer.mymusicplayer.SingleViewTouchableMotionLayout>

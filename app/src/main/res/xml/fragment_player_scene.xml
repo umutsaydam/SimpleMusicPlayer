@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:motion="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        motion:constraintSetEnd="@id/expanded"
+        motion:constraintSetStart="@id/collapsed"
+        motion:duration="300"
+        motion:motionInterpolator="easeInOut">
+
+        <OnSwipe
+            motion:dragDirection="dragUp"
+            motion:maxAcceleration="200"
+            motion:touchRegionId="@id/playerBackground" />
+
+        <KeyFrameSet>
+
+            <KeyAttribute
+                android:alpha="1.0"
+                motion:framePosition="0"
+                motion:motionTarget="@id/artistName" />
+
+            <KeyAttribute
+                android:alpha="0.0"
+                motion:framePosition="70"
+                motion:motionTarget="@id/artistName" />
+
+            <KeyAttribute
+                android:alpha="1.0"
+                motion:framePosition="100"
+                motion:motionTarget="@id/artistName" />
+
+            <KeyAttribute
+                android:alpha="1.0"
+                motion:framePosition="0"
+                motion:motionTarget="@id/audioName" />
+
+            <KeyAttribute
+                android:alpha="0.0"
+                motion:framePosition="70"
+                motion:motionTarget="@id/audioName" />
+
+            <KeyAttribute
+                android:alpha="1.0"
+                motion:framePosition="100"
+                motion:motionTarget="@id/audioName" />
+
+            <KeyAttribute
+                android:alpha="0.0"
+                app:framePosition="0"
+                app:motionTarget="@id/progressBar" />
+
+            <KeyAttribute
+                android:alpha="1.0"
+                app:framePosition="100"
+                app:motionTarget="@id/progressBar" />
+
+        </KeyFrameSet>
+
+    </Transition>
+
+    <ConstraintSet android:id="@+id/expanded">
+
+        <Constraint
+            android:id="@id/playerBackground"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toTopOf="parent">
+            <CustomAttribute
+                motion:attributeName="cardBackgroundColor"
+                motion:customColorValue="@color/background" />
+
+            <CustomAttribute
+                motion:attributeName="radius"
+                motion:customDimension="0dp" />
+        </Constraint>
+
+        <Constraint
+            android:id="@id/audioImage"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="55dp"
+            motion:layout_constraintDimensionRatio="1:1"
+            motion:layout_constraintEnd_toEndOf="@id/playerBackground"
+            motion:layout_constraintHeight_percent=".3"
+            motion:layout_constraintStart_toStartOf="@id/playerBackground"
+            motion:layout_constraintTop_toTopOf="@id/playerBackground">
+
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/audioName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/audioImage">
+
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/artistName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent"
+            motion:layout_constraintTop_toBottomOf="@+id/audioName">
+
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/prevImageView"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_marginEnd="24dp"
+            android:src="@android:drawable/ic_media_previous"
+            motion:layout_constraintBottom_toTopOf="parent"
+            motion:layout_constraintEnd_toStartOf="@id/playPauseLayout"
+            motion:layout_constraintTop_toTopOf="@+id/playPauseLayout" />
+
+        <Constraint
+            android:id="@+id/playPauseLayout"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="60dp"
+            motion:layout_constraintBottom_toTopOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent" />
+
+        <Constraint
+            android:id="@+id/nextImageView"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:layout_marginStart="24dp"
+            android:src="@android:drawable/ic_media_next"
+            motion:layout_constraintBottom_toTopOf="parent"
+            motion:layout_constraintStart_toEndOf="@+id/playPauseLayout"
+            motion:layout_constraintTop_toTopOf="@+id/playPauseLayout" />
+
+        <Constraint
+            android:id="@+id/progressBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintBottom_toTopOf="@+id/playPauseLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/collapsed">
+
+        <Constraint
+            android:id="@+id/playerBackground"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="20dp"
+            motion:layout_constraintBottom_toBottomOf="parent"
+            motion:layout_constraintEnd_toEndOf="parent"
+            motion:layout_constraintStart_toStartOf="parent">
+
+            <CustomAttribute
+                motion:attributeName="cardBackgroundColor"
+                motion:customColorValue="@color/black" />
+
+            <CustomAttribute
+                motion:attributeName="radius"
+                motion:customDimension="20dp" />
+
+        </Constraint>
+
+        <Constraint
+            android:id="@id/audioImage"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="15dp"
+            motion:layout_constraintBottom_toBottomOf="@id/playerBackground"
+            motion:layout_constraintStart_toStartOf="@id/playerBackground"
+            motion:layout_constraintTop_toTopOf="@+id/playerBackground">
+
+        </Constraint>
+
+        <Constraint
+            android:id="@id/audioName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            motion:layout_constraintBottom_toTopOf="@+id/artistName"
+            motion:layout_constraintEnd_toStartOf="@+id/prevImageView"
+            motion:layout_constraintStart_toEndOf="@+id/audioImage"
+            motion:layout_constraintTop_toTopOf="@+id/audioImage">
+
+        </Constraint>
+
+        <Constraint
+            android:id="@id/artistName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            motion:layout_constraintBottom_toBottomOf="@+id/audioImage"
+            motion:layout_constraintEnd_toStartOf="@+id/prevImageView"
+            motion:layout_constraintHorizontal_bias="0"
+            motion:layout_constraintStart_toStartOf="@+id/audioName"
+            motion:layout_constraintTop_toBottomOf="@+id/audioName">
+
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/prevImageView"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="10dp"
+            motion:layout_constraintBottom_toBottomOf="@+id/playPauseLayout"
+            motion:layout_constraintEnd_toStartOf="@id/playPauseLayout"
+            motion:layout_constraintTop_toTopOf="@+id/playPauseLayout" />
+
+        <Constraint
+            android:id="@+id/playPauseLayout"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="10dp"
+            motion:layout_constraintBottom_toBottomOf="@+id/playerBackground"
+            motion:layout_constraintEnd_toStartOf="@+id/nextImageView"
+            motion:layout_constraintTop_toTopOf="@+id/playerBackground" />
+
+        <Constraint
+            android:id="@+id/nextImageView"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="10dp"
+            motion:layout_constraintBottom_toBottomOf="@+id/playPauseLayout"
+            motion:layout_constraintEnd_toEndOf="@id/playerBackground"
+            motion:layout_constraintTop_toTopOf="@+id/playPauseLayout" />
+
+        <Constraint
+            android:id="@+id/progressBar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/playPauseLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </ConstraintSet>
+
+</MotionScene>
