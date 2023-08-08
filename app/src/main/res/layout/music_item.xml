@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:backgroundTint="@color/listed_music"
+    app:cardBackgroundColor="@color/listed_music"
     app:cardUseCompatPadding="true"
     app:contentPadding="10dp"
     android:layout_marginStart="10dp"
@@ -25,7 +25,7 @@
             android:layout_height="55dp"
             android:padding="10dp"
             android:background="@drawable/ic_play_bg"
-            android:src="@drawable/ic_play"/>
+            android:src="@drawable/ic_music"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -40,6 +40,8 @@
                 android:layout_height="wrap_content"
                 android:text="Dog in the car"
                 android:textSize="19sp"
+
+                android:letterSpacing="0.05"
                 android:textColor="@color/white"
                 android:textStyle="bold"/>
 
@@ -48,6 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TLinh"
+                android:letterSpacing="0.05"
                 android:textSize="16sp"
                 android:textColor="@color/listed_music_sub_info"/>
         </LinearLayout>
