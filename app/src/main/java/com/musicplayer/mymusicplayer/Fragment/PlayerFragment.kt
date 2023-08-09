@@ -2,20 +2,27 @@ package com.musicplayer.mymusicplayer.Fragment
 
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SeekBar
 import android.widget.Toast
 import com.musicplayer.mymusicplayer.MediaPlayerInstance
 import com.musicplayer.mymusicplayer.Model.Music
 import com.musicplayer.mymusicplayer.R
 import com.musicplayer.mymusicplayer.databinding.FragmentPlayerBinding
 
-class PlayerFragment : Fragment() {
+class PlayerFragment : Fragment(), Runnable {
     private var _binding: FragmentPlayerBinding? = null
     private val binding get() = _binding!!
     private var music: Music? = null
+    private var seekBarDragTime = 0
+    private val mediaPlayer = MediaPlayerInstance.getMediaPlayer()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,23 +50,60 @@ class PlayerFragment : Fragment() {
         binding.audioName.text = music?.title
         binding.artistName.text = music?.artist
 
-        val mediaPlayer = MediaPlayerInstance.getMediaPlayer()
+        val seekBar = binding.seekBar
+        binding.seekBar.progress = 0
+        seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, p2: Boolean) {
+                seekBar.visibility = View.VISIBLE
+                seekBarDragTime = progress
+            }
+
+            override fun onStartTrackingTouch(p0: SeekBar?) {
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar?) {
+                seekBar?.visibility = View.VISIBLE
+                mediaPlayer.seekTo(seekBarDragTime * 1000)
+            }
+        })
+
+        setSeekBar()
 
         binding.playPauseLayout.setOnClickListener {
             Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show()
             MediaPlayerInstance.playStopMusic()
 
-            if (mediaPlayer.isPlaying){
+            if (mediaPlayer.isPlaying) {
                 binding.playPauseImageView.setImageResource(R.drawable.ic_pause)
-            }else{
+            } else {
                 binding.playPauseImageView.setImageResource(R.drawable.ic_play)
             }
+            setSeekBar()
+        }
+
+    }
+
+    private fun setSeekBar() {
+        Thread(this).start()
+    }
+
+    override fun run() {
+        val total = mediaPlayer.duration
+        var currPosition = mediaPlayer.currentPosition /1000
+        binding.seekBar.max = total / 1000
+        binding.seekBar.progress = currPosition
+
+        while (mediaPlayer.isPlaying && mediaPlayer.currentPosition < total){
+            if (mediaPlayer.isPlaying && currPosition < total) {
+                binding.seekBar.progress = currPosition
+                currPosition = mediaPlayer.currentPosition /1000
+            } else {
+                Log.d("R/T", "durdu **")
+            }
+            Log.d("R/T", "onProgressChanged $currPosition/$total **")
+            Thread.sleep(1000)
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
 }
