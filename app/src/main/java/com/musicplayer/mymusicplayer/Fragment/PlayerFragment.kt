@@ -7,7 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.musicplayer.mymusicplayer.MediaPlayerInstance
 import com.musicplayer.mymusicplayer.Model.Music
+import com.musicplayer.mymusicplayer.R
 import com.musicplayer.mymusicplayer.databinding.FragmentPlayerBinding
 
 class PlayerFragment : Fragment() {
@@ -15,15 +17,10 @@ class PlayerFragment : Fragment() {
     private val binding get() = _binding!!
     private var music: Music? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentPlayerBinding.inflate(inflater, container, false)
 
 
@@ -45,6 +42,19 @@ class PlayerFragment : Fragment() {
     private fun setItems() {
         binding.audioName.text = music?.title
         binding.artistName.text = music?.artist
+
+        val mediaPlayer = MediaPlayerInstance.getMediaPlayer()
+
+        binding.playPauseLayout.setOnClickListener {
+            Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show()
+            MediaPlayerInstance.playStopMusic()
+
+            if (mediaPlayer.isPlaying){
+                binding.playPauseImageView.setImageResource(R.drawable.ic_pause)
+            }else{
+                binding.playPauseImageView.setImageResource(R.drawable.ic_play)
+            }
+        }
     }
 
     override fun onDestroyView() {

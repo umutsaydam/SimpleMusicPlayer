@@ -108,7 +108,7 @@
         app:layout_constraintTop_toTopOf="@+id/playerBackground">
 
         <ImageView
-            android:id="@+id/play_pause_image_view"
+            android:id="@+id/playPauseImageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"

@@ -1,7 +1,6 @@
 package com.musicplayer.mymusicplayer.Adapter
 
 import android.content.Context
-import android.media.MediaPlayer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,13 +11,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.musicplayer.mymusicplayer.MediaPlayerInstance
 import com.musicplayer.mymusicplayer.Model.Music
 import com.musicplayer.mymusicplayer.R
-import java.lang.Exception
 
 class MusicAdapter(private val context: Context, private val listener: MusicClickListener) :
     RecyclerView.Adapter<MusicAdapter.MusicViewHolder>() {
     private var musicsList = arrayListOf<Music>()
     private var lastSelectedMusicCardView: CardView? = null
-    private var mediaPlayer: MediaPlayer = MediaPlayerInstance.getMediaPlayer()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MusicViewHolder {
         return MusicViewHolder(
@@ -48,17 +45,9 @@ class MusicAdapter(private val context: Context, private val listener: MusicClic
                     )
                 )
             }
-            try {
-                if (mediaPlayer.isPlaying) {
-                    mediaPlayer.stop()
-                }
-                mediaPlayer.reset()
-                mediaPlayer.setDataSource(music.path)
-                mediaPlayer.prepare()
-                mediaPlayer.start()
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
+
+            MediaPlayerInstance.setMusic(music)
+            MediaPlayerInstance.playOrStopMusic()
 
             lastSelectedMusicCardView = holder.cardViewMusic
         }
