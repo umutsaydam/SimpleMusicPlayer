@@ -9,14 +9,16 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.musicplayer.mymusicplayer.MediaPlayerInstance
 import com.musicplayer.mymusicplayer.Model.Music
 import com.musicplayer.mymusicplayer.R
 import java.lang.Exception
 
-class MusicAdapter(private val context: Context, private val listener: MusicClickListener, private val mediaPlayer: MediaPlayer) :
+class MusicAdapter(private val context: Context, private val listener: MusicClickListener) :
     RecyclerView.Adapter<MusicAdapter.MusicViewHolder>() {
-    private lateinit var musicsList: List<Music>
+    private var musicsList = arrayListOf<Music>()
     private var lastSelectedMusicCardView: CardView? = null
+    private var mediaPlayer: MediaPlayer = MediaPlayerInstance.getMediaPlayer()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MusicViewHolder {
         return MusicViewHolder(
@@ -65,7 +67,7 @@ class MusicAdapter(private val context: Context, private val listener: MusicClic
         holder.msDuration.text = music.duration.toString()
     }
 
-    fun setMusicList(musicList: List<Music>) {
+    fun setMusicList(musicList: ArrayList<Music>) {
         this.musicsList = musicList
         notifyDataSetChanged()
     }

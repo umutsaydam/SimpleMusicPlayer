@@ -6,4 +6,5 @@
     <color name="listed_music">#27283E</color>
     <color name="selected_music">#2f3255</color>
     <color name="listed_music_sub_info">#4e507a</color>
+    <color name="sub_info">#A3A3A3</color>
 </resources>

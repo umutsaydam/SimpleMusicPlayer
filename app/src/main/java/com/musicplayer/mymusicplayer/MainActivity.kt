@@ -17,14 +17,12 @@ import com.musicplayer.mymusicplayer.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), MusicAdapter.MusicClickListener {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var mediaPlayer: MediaPlayer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        mediaPlayer = MediaPlayer()
         checkPermission()
 
     }
@@ -62,7 +60,7 @@ class MainActivity : AppCompatActivity(), MusicAdapter.MusicClickListener {
             null
         )
 
-        val musicList = mutableListOf<Music>()
+        val musicList = arrayListOf<Music>()
 
         cursor?.use {
             while (it.moveToNext()) {
@@ -76,16 +74,20 @@ class MainActivity : AppCompatActivity(), MusicAdapter.MusicClickListener {
                 val music = Music(id, title, artist, duration, path)
                 musicList.add(music)
             }
-            var adapter = MusicAdapter(this, this, mediaPlayer)
+            val adapter = MusicAdapter(this, this)
             adapter.setMusicList(musicList)
-            binding.recycler.adapter = adapter
             binding.recycler.setHasFixedSize(true)
-            musicList.forEach { Log.d("R/T", it.artist + " " + it.title) }
+            binding.recycler.adapter = adapter
         }
     }
 
     override fun onItemClickListener(music: Music) {
-        supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, PlayerFragment())
+        val playerFragment = PlayerFragment()
+        val bundle = Bundle().apply {
+            putParcelable("music", music)
+        }
+        playerFragment.arguments = bundle
+        supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, playerFragment)
             .commit()
 
     }

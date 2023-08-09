@@ -52,6 +52,11 @@
                 app:motionTarget="@id/progressBar" />
 
             <KeyAttribute
+                android:alpha="0.0"
+                app:framePosition="70"
+                app:motionTarget="@id/progressBar" />
+
+            <KeyAttribute
                 android:alpha="1.0"
                 app:framePosition="100"
                 app:motionTarget="@id/progressBar" />
@@ -65,7 +70,7 @@
         <Constraint
             android:id="@id/playerBackground"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
@@ -83,7 +88,7 @@
             android:id="@id/audioImage"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="55dp"
+            android:layout_marginTop="28dp"
             motion:layout_constraintDimensionRatio="1:1"
             motion:layout_constraintEnd_toEndOf="@id/playerBackground"
             motion:layout_constraintHeight_percent=".3"
@@ -96,10 +101,12 @@
             android:id="@+id/audioName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="15dp"
             android:layout_marginBottom="8dp"
-            motion:layout_constraintEnd_toEndOf="parent"
-            motion:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            motion:layout_constraintEnd_toEndOf="@+id/audioImage"
+            motion:layout_constraintStart_toStartOf="@+id/audioImage"
             motion:layout_constraintTop_toBottomOf="@+id/audioImage">
 
         </Constraint>
@@ -116,36 +123,6 @@
 
         </Constraint>
 
-        <Constraint
-            android:id="@+id/prevImageView"
-            android:layout_width="46dp"
-            android:layout_height="46dp"
-            android:layout_marginEnd="24dp"
-            android:src="@android:drawable/ic_media_previous"
-            motion:layout_constraintBottom_toTopOf="parent"
-            motion:layout_constraintEnd_toStartOf="@id/playPauseLayout"
-            motion:layout_constraintTop_toTopOf="@+id/playPauseLayout" />
-
-        <Constraint
-            android:id="@+id/playPauseLayout"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="60dp"
-            motion:layout_constraintBottom_toTopOf="parent"
-            motion:layout_constraintEnd_toEndOf="parent"
-            motion:layout_constraintStart_toStartOf="parent" />
-
-        <Constraint
-            android:id="@+id/nextImageView"
-            android:layout_width="46dp"
-            android:layout_height="46dp"
-            android:layout_marginStart="24dp"
-            android:src="@android:drawable/ic_media_next"
-            motion:layout_constraintBottom_toTopOf="parent"
-            motion:layout_constraintStart_toEndOf="@+id/playPauseLayout"
-            motion:layout_constraintTop_toTopOf="@+id/playPauseLayout" />
 
         <Constraint
             android:id="@+id/progressBar"
@@ -153,9 +130,47 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="5dp"
+            android:layout_marginBottom="15dp"
             app:layout_constraintBottom_toTopOf="@+id/playPauseLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent">
+
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/prevImageView"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/playPauseLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/progressBar">
+
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/playPauseLayout"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:padding="0dp"
+            app:layout_constraintBottom_toBottomOf="@+id/prevImageView"
+            app:layout_constraintEnd_toStartOf="@+id/nextImageView"
+            app:layout_constraintStart_toEndOf="@+id/prevImageView"
+            app:layout_constraintTop_toTopOf="@+id/prevImageView">
+
+        </Constraint>
+
+        <Constraint
+            android:id="@+id/nextImageView"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            app:layout_constraintBottom_toBottomOf="@+id/playPauseLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/playPauseLayout"
+            app:layout_constraintTop_toTopOf="@+id/playPauseLayout">
+
+        </Constraint>
+
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/collapsed">
@@ -223,27 +238,34 @@
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginEnd="10dp"
-            motion:layout_constraintBottom_toBottomOf="@+id/playPauseLayout"
-            motion:layout_constraintEnd_toStartOf="@id/playPauseLayout"
-            motion:layout_constraintTop_toTopOf="@+id/playPauseLayout" />
+            app:layout_constraintBottom_toBottomOf="@+id/playPauseLayout"
+            app:layout_constraintEnd_toStartOf="@id/playPauseLayout"
+            app:layout_constraintTop_toTopOf="@+id/playPauseLayout">
+
+        </Constraint>
 
         <Constraint
             android:id="@+id/playPauseLayout"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
             android:layout_marginEnd="10dp"
-            motion:layout_constraintBottom_toBottomOf="@+id/playerBackground"
-            motion:layout_constraintEnd_toStartOf="@+id/nextImageView"
-            motion:layout_constraintTop_toTopOf="@+id/playerBackground" />
+            android:padding="3dp"
+            app:layout_constraintBottom_toBottomOf="@+id/playerBackground"
+            app:layout_constraintEnd_toStartOf="@+id/nextImageView"
+            app:layout_constraintTop_toTopOf="@+id/playerBackground">
+
+        </Constraint>
 
         <Constraint
             android:id="@+id/nextImageView"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginEnd="10dp"
-            motion:layout_constraintBottom_toBottomOf="@+id/playPauseLayout"
-            motion:layout_constraintEnd_toEndOf="@id/playerBackground"
-            motion:layout_constraintTop_toTopOf="@+id/playPauseLayout" />
+            app:layout_constraintBottom_toBottomOf="@+id/playPauseLayout"
+            app:layout_constraintEnd_toEndOf="@id/playerBackground"
+            app:layout_constraintTop_toTopOf="@+id/playPauseLayout">
+
+        </Constraint>
 
         <Constraint
             android:id="@+id/progressBar"
@@ -253,7 +275,9 @@
             android:layout_marginEnd="10dp"
             app:layout_constraintBottom_toTopOf="@+id/playPauseLayout"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent">
+
+        </Constraint>
 
     </ConstraintSet>
 

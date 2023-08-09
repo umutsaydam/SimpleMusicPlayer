@@ -27,26 +27,26 @@
         android:id="@+id/audioImage"
         android:layout_width="55dp"
         android:layout_height="55dp"
-        android:elevation="10dp"
         android:background="@drawable/ic_play_pause_bg"
+        android:elevation="10dp"
         android:src="@drawable/ic_music"
         app:layout_constraintBottom_toBottomOf="@id/playerBackground"
         app:layout_constraintDimensionRatio="1:1"
         app:layout_constraintStart_toStartOf="@id/playerBackground"
-        app:layout_constraintTop_toTopOf="@id/playerBackground"/>
+        app:layout_constraintTop_toTopOf="@id/playerBackground" />
 
     <TextView
         android:id="@+id/audioName"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:elevation="10dp"
         android:ellipsize="end"
         android:maxLines="1"
+        android:textColor="@color/white"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/artistName"
         app:layout_constraintEnd_toStartOf="@+id/prevImageView"
         app:layout_constraintStart_toEndOf="@+id/audioImage"
@@ -55,12 +55,13 @@
 
     <TextView
         android:id="@+id/artistName"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
         android:elevation="10dp"
         android:ellipsize="end"
         android:maxLines="1"
+        android:textColor="@color/sub_info"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/audioImage"
         app:layout_constraintEnd_toStartOf="@+id/prevImageView"
@@ -69,22 +70,20 @@
         app:layout_constraintTop_toBottomOf="@+id/audioName"
         tools:text="Artist" />
 
-
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:max="100"
-        android:progressTint="@color/white"
         android:layout_marginStart="5dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="5dp"
+        android:elevation="10dp"
+        android:max="100"
         android:progress="50"
-        android:elevation="5dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:progressTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/playPauseLayout"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/prevImageView"
@@ -92,7 +91,7 @@
         android:layout_height="32dp"
         android:layout_marginEnd="10dp"
         android:elevation="10dp"
-        android:src="@android:drawable/ic_media_previous"
+        android:src="@drawable/ic_previous"
         app:layout_constraintBottom_toBottomOf="@+id/playPauseLayout"
         app:layout_constraintEnd_toStartOf="@id/playPauseLayout"
         app:layout_constraintTop_toTopOf="@+id/playPauseLayout" />
@@ -110,10 +109,13 @@
 
         <ImageView
             android:id="@+id/play_pause_image_view"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
-            app:srcCompat="@android:drawable/ic_media_pause" />
+            android:background="@drawable/rainbow_bg"
+            android:padding="3dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_pause" />
     </FrameLayout>
 
     <ImageView
@@ -122,7 +124,7 @@
         android:layout_height="32dp"
         android:layout_marginEnd="10dp"
         android:elevation="10dp"
-        android:src="@android:drawable/ic_media_next"
+        android:src="@drawable/ic_next"
         app:layout_constraintBottom_toBottomOf="@+id/playPauseLayout"
         app:layout_constraintEnd_toEndOf="@id/playerBackground"
         app:layout_constraintTop_toTopOf="@+id/playPauseLayout" />
