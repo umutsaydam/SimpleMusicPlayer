@@ -2,15 +2,13 @@ package com.musicplayer.mymusicplayer.Fragment
 
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SeekBar
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.musicplayer.mymusicplayer.MediaPlayerInstance
 import com.musicplayer.mymusicplayer.Model.Music
 import com.musicplayer.mymusicplayer.R
@@ -21,7 +19,8 @@ class PlayerFragment : Fragment(), Runnable {
     private val binding get() = _binding!!
     private var music: Music? = null
     private var seekBarDragTime = 0
-    private val mediaPlayer = MediaPlayerInstance.getMediaPlayer()
+    private val playerInstance = MediaPlayerInstance
+    private val mediaPlayer = playerInstance.getMediaPlayer()
 
 
     override fun onCreateView(
@@ -54,7 +53,6 @@ class PlayerFragment : Fragment(), Runnable {
         binding.seekBar.progress = 0
         seekBar.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, progress: Int, p2: Boolean) {
-                seekBar.visibility = View.VISIBLE
                 seekBarDragTime = progress
             }
 
@@ -62,12 +60,15 @@ class PlayerFragment : Fragment(), Runnable {
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                seekBar?.visibility = View.VISIBLE
                 mediaPlayer.seekTo(seekBarDragTime * 1000)
             }
         })
 
         setSeekBar()
+
+        binding.msCurrPosition.text =
+            playerInstance.formatTime(playerInstance.getMusicCurrPosition().toLong())
+        binding.msDuration.text = playerInstance.formatTime(playerInstance.getMusicDuration())
 
         binding.playPauseLayout.setOnClickListener {
             Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show()
@@ -89,20 +90,32 @@ class PlayerFragment : Fragment(), Runnable {
 
     override fun run() {
         val total = mediaPlayer.duration
-        var currPosition = mediaPlayer.currentPosition /1000
+        var currPosition = mediaPlayer.currentPosition / 1000
         binding.seekBar.max = total / 1000
         binding.seekBar.progress = currPosition
 
-        while (mediaPlayer.isPlaying && mediaPlayer.currentPosition < total){
+        while (mediaPlayer.isPlaying && mediaPlayer.currentPosition < total) {
             if (mediaPlayer.isPlaying && currPosition < total) {
                 binding.seekBar.progress = currPosition
-                currPosition = mediaPlayer.currentPosition /1000
+                currPosition = mediaPlayer.currentPosition / 1000
+
+                activity?.runOnUiThread {
+                    Log.d(
+                        "R/T",
+                        "calisti" + playerInstance.formatTime(
+                            playerInstance.getMusicCurrPosition().toLong()
+                        )
+                    )
+                    binding.msCurrPosition.text =
+                        playerInstance.formatTime(playerInstance.getMusicCurrPosition().toLong())
+                }
             } else {
                 Log.d("R/T", "durdu **")
             }
             Log.d("R/T", "onProgressChanged $currPosition/$total **")
             Thread.sleep(1000)
         }
+        binding.playPauseImageView.setImageResource(R.drawable.ic_play)
     }
 
 

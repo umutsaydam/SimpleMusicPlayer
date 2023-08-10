@@ -40,7 +40,7 @@
                 android:layout_height="wrap_content"
                 android:text="Dog in the car"
                 android:textSize="19sp"
-
+                android:maxLines="1"
                 android:letterSpacing="0.05"
                 android:textColor="@color/white"
                 android:textStyle="bold"/>
@@ -50,6 +50,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TLinh"
+                android:maxLines="1"
                 android:letterSpacing="0.05"
                 android:textSize="16sp"
                 android:textColor="@color/listed_music_sub_info"/>

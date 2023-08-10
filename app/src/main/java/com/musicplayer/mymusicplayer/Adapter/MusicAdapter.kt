@@ -16,6 +16,7 @@ class MusicAdapter(private val context: Context, private val listener: MusicClic
     RecyclerView.Adapter<MusicAdapter.MusicViewHolder>() {
     private var musicsList = arrayListOf<Music>()
     private var lastSelectedMusicCardView: CardView? = null
+    private val playerInstance = MediaPlayerInstance
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MusicViewHolder {
         return MusicViewHolder(
@@ -46,14 +47,14 @@ class MusicAdapter(private val context: Context, private val listener: MusicClic
                 )
             }
 
-            MediaPlayerInstance.setMusic(music)
-            MediaPlayerInstance.playOrStopMusic()
+            playerInstance.setMusic(music)
+            playerInstance.playOrStopMusic()
 
             lastSelectedMusicCardView = holder.cardViewMusic
         }
         holder.msMusic.text = music.title
         holder.msArtist.text = music.artist
-        holder.msDuration.text = music.duration.toString()
+        holder.msDuration.text = playerInstance.formatTime(music.duration)
     }
 
     fun setMusicList(musicList: ArrayList<Music>) {
