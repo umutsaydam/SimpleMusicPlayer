@@ -1,5 +1,6 @@
 package com.musicplayer.mymusicplayer.Fragment
 
+import android.media.audiofx.Visualizer
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,8 @@ import com.musicplayer.mymusicplayer.MediaPlayerInstance
 import com.musicplayer.mymusicplayer.Model.Music
 import com.musicplayer.mymusicplayer.R
 import com.musicplayer.mymusicplayer.databinding.FragmentPlayerBinding
+import kotlin.math.abs
+import kotlin.math.log10
 
 class PlayerFragment : Fragment(), Runnable {
     private var _binding: FragmentPlayerBinding? = null
@@ -21,6 +24,8 @@ class PlayerFragment : Fragment(), Runnable {
     private var seekBarDragTime = 0
     private val playerInstance = MediaPlayerInstance
     private val mediaPlayer = playerInstance.getMediaPlayer()
+    private lateinit var magnitudesArray: FloatArray
+    private val maxMagnitude = calculateMagnitude(128f, 128f)
 
 
     override fun onCreateView(
@@ -85,6 +90,7 @@ class PlayerFragment : Fragment(), Runnable {
     }
 
     private fun setSeekBar() {
+
         Thread(this).start()
     }
 
@@ -96,9 +102,9 @@ class PlayerFragment : Fragment(), Runnable {
 
         while (mediaPlayer.isPlaying && mediaPlayer.currentPosition < total) {
             if (mediaPlayer.isPlaying && currPosition < total) {
+                testRyhthm()
                 binding.seekBar.progress = currPosition
                 currPosition = mediaPlayer.currentPosition / 1000
-
                 activity?.runOnUiThread {
                     Log.d(
                         "R/T",
@@ -117,6 +123,68 @@ class PlayerFragment : Fragment(), Runnable {
         }
         binding.playPauseImageView.setImageResource(R.drawable.ic_play)
     }
+
+    fun testRyhthm() {
+        if (mediaPlayer.isPlaying) {
+            val visualizer: Visualizer
+            val captureSizeRange = Visualizer.getCaptureSizeRange()
+            try {
+                visualizer = Visualizer(mediaPlayer.audioSessionId)
+                visualizer.apply {
+                    captureSize = Visualizer.getCaptureSizeRange()[1]
+                    setDataCaptureListener(
+                        object: Visualizer.OnDataCaptureListener{
+                            override fun onWaveFormDataCapture(
+                                p0: Visualizer?,
+                                fft: ByteArray?,
+                                samplingRate: Int
+                            ) {
+
+                            }
+
+                            override fun onFftDataCapture(
+                                p0: Visualizer?,
+                                fft: ByteArray?,
+                                p2: Int
+                            ) {
+                                if (fft != null) {
+                                    val n: Int = fft.size
+                                    val magnitudes = FloatArray(n / 2 + 1)
+                                    val phases = FloatArray(n / 2 + 1)
+                                    magnitudes[0] = abs(fft[0].toDouble()).toFloat() // DC
+                                    magnitudes[n / 2] = abs(fft[1].toDouble()).toFloat() // Nyquist
+
+                                    phases[0] = 0.also { phases[n / 2] = it.toFloat() }.toFloat()
+                                    for (k in 1 until n / 2) {
+                                        val i = k * 2
+                                        magnitudes[k] =
+                                            Math.hypot(fft.get(i).toDouble(), fft.get(i + 1).toDouble()).toFloat()
+                                        phases[k] = Math.atan2(fft[i + 1].toDouble(), fft[i].toDouble()).toFloat()
+                                    }
+
+                                    magnitudes.map { it/maxMagnitude}
+                                }else{
+                                    Log.d("R/T", "onWaveFormDataCapture null")
+                                }
+                            }
+                        },
+                        Visualizer.getMaxCaptureRate(),
+                        true,
+                        true
+                    )
+                    enabled = true
+                }
+            } catch (e: Exception) {
+                Log.d("R/T", "!!!!" + e.message.toString())
+            }
+
+            magnitudesArray = FloatArray(captureSizeRange[1] / 2 + 1)
+
+        }
+    }
+
+
+    private fun calculateMagnitude(r: Float, i: Float) = if (i == 0f && r == 0f) 0f else 10 * log10(r * r + i * i)
 
 
 }

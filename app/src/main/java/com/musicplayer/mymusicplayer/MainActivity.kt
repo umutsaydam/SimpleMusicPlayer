@@ -4,6 +4,7 @@ package com.musicplayer.mymusicplayer
 import android.Manifest
 import android.content.pm.PackageManager
 import android.media.MediaPlayer
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -29,14 +30,26 @@ class MainActivity : AppCompatActivity(), MusicAdapter.MusicClickListener {
 
     private fun checkPermission() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+            == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.MODIFY_AUDIO_SETTINGS
+            )
+            == PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.RECORD_AUDIO
+            )
             == PackageManager.PERMISSION_GRANTED
         ) {
             listMusics()
         } else {
             ActivityCompat.requestPermissions(
                 this,
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                123
+                arrayOf(
+                    Manifest.permission.MODIFY_AUDIO_SETTINGS,
+                    Manifest.permission.RECORD_AUDIO,
+                    Manifest.permission.READ_EXTERNAL_STORAGE
+                ),
+                1
             )
         }
     }
