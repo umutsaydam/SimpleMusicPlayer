@@ -175,6 +175,7 @@
 
         </Constraint>
 
+
         <Constraint
             android:id="@+id/seekBar"
             android:layout_width="0dp"
@@ -309,7 +310,6 @@
             app:layout_constraintEnd_toEndOf="parent">
 
         </Constraint>
-
 
         <Constraint
             android:id="@+id/seekBar"
