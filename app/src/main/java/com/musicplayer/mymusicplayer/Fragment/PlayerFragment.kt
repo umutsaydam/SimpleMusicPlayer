@@ -82,8 +82,7 @@ class PlayerFragment : Fragment(), Runnable {
     }
 
     private fun setSeekBar() {
-        //testRyhthm()
-        Thread(this).start()
+       Thread(this).start()
     }
 
     override fun run() {
@@ -97,12 +96,12 @@ class PlayerFragment : Fragment(), Runnable {
                 binding.seekBar.progress = currPosition
                 currPosition = mediaPlayer.currentPosition / 1000
                 activity?.runOnUiThread {
-                    Log.d(
+                  /*  Log.d(
                         "R/T",
                         "calisti" + playerInstance.formatTime(
                             playerInstance.getMusicCurrPosition().toLong()
                         )
-                    )
+                    )*/
                     binding.msCurrPosition.text =
                         playerInstance.formatTime(playerInstance.getMusicCurrPosition().toLong())
                 }

@@ -4,66 +4,89 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.Paint
-import android.graphics.RectF
 import android.media.audiofx.Visualizer
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
-import java.util.Random
 import kotlin.math.abs
+import kotlin.math.atan2
+import kotlin.math.hypot
 import kotlin.math.log10
 
 class WaveMusicView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     private val paint = Paint()
-    private val spike = ArrayList<RectF>()
-    private  var currentFreq = 0f
+    private var spike: FloatArray? = null
     private var mediaPlayer = MediaPlayerInstance.getMediaPlayer()
     private lateinit var magnitudesArray: FloatArray
     private val maxMagnitude = calculateMagnitude(128f, 128f)
+    private var visualizer: Visualizer? = null
 
     init {
         paint.color = Color.WHITE
-      //  createSpikes()
-        testRyhthm()
+        paint.strokeWidth = 6f
+        startVisualizer()
     }
 
-
-    private fun updateSpikes() {
-        // Spike'ları güncelleyin veya yeni ekleyin
-        val spikeHeight = currentFreq * 10
-        val newSpike = RectF(50f, 0f, 100f, spikeHeight)
-        spike.clear()
-        spike.add(newSpike)
-    }
-
-    fun updateFrequency(frequency: Float){
-        currentFreq = frequency
-        updateSpikes()
+    private fun updateSpikes(floatArray: FloatArray) {
+        spike = floatArray
+        Log.d("R/T", "updated spike")
         invalidate()
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         canvas.drawColor(Color.BLACK)
-        Log.d("R/T", "tetiklendi!!!!!!!!!!!!!!!!!!")
-        // Spike'ları çizin
-        for (i in spike) {
-            canvas.drawRect(i, paint)
+
+        if (mediaPlayer.isPlaying && spike != null) {
+            val widthPerColumn = width.toFloat() / spike!!.size
+            var x = width.toFloat() / 2
+            var rX = width.toFloat() / 2
+            val y = 0f
+            Log.d("R/T", "cizildi.")
+            for (i in spike!!.indices) {
+                if (i == 0) {
+                    canvas.drawLine(x, y, x + widthPerColumn, spike!![i], paint)
+                    canvas.drawLine(rX, y, rX - widthPerColumn, spike!![i], paint)
+                } else {
+                    canvas.drawLine(x, spike!![i - 1], x + widthPerColumn, spike!![i], paint)
+                    canvas.drawLine(rX, spike!![i - 1], rX - widthPerColumn, spike!![i], paint)
+                }
+                x += widthPerColumn
+                rX -= widthPerColumn
+            }
+            //spike = null
+        } else if (mediaPlayer.isPlaying && spike == null) {
+            Log.d("R/T", "calisiyor ama spike null")
+        }else{
+            Log.d("R/T", "player durdu!!!!!!")
+            stopVisualizer()
         }
 
-
-        // Çizimi güncelleyin
         postInvalidateOnAnimation()
     }
 
-    fun testRyhthm() {
-        if (mediaPlayer.isPlaying) {
-            val visualizer: Visualizer
-            val captureSizeRange = Visualizer.getCaptureSizeRange()
-            try {
+    private fun startVisualizer() {
+        visualizer = Visualizer(mediaPlayer.audioSessionId)
+        getFFT()
+    }
+
+    private fun stopVisualizer() {
+        visualizer?.apply {
+            release()
+            visualizer = null
+        }
+    }
+
+    private fun getFFT() {
+        val captureSizeRange = Visualizer.getCaptureSizeRange()
+        try {
+            if (visualizer != null) {
+                Log.d("R/T", "getFFT")
                 visualizer = Visualizer(mediaPlayer.audioSessionId)
-                visualizer.apply {
-                    captureSize = Visualizer.getCaptureSizeRange()[1]
+                visualizer!!.captureSize
+                visualizer?.apply {
+                    captureSize = 256
+                    measurementMode = Visualizer.MEASUREMENT_MODE_PEAK_RMS
                     setDataCaptureListener(
                         object : Visualizer.OnDataCaptureListener {
                             override fun onWaveFormDataCapture(
@@ -71,7 +94,7 @@ class WaveMusicView(context: Context, attrs: AttributeSet) : View(context, attrs
                                 fft: ByteArray?,
                                 samplingRate: Int
                             ) {
-
+                                Log.d("R/T", "onWaveFormDataCapture")
                             }
 
                             override fun onFftDataCapture(
@@ -90,36 +113,38 @@ class WaveMusicView(context: Context, attrs: AttributeSet) : View(context, attrs
                                     for (k in 1 until n / 2) {
                                         val i = k * 2
                                         magnitudes[k] =
-                                            Math.hypot(
-                                                fft.get(i).toDouble(),
-                                                fft.get(i + 1).toDouble()
+                                            hypot(
+                                                fft[i].toDouble(),
+                                                fft[i + 1].toDouble()
                                             ).toFloat()
                                         phases[k] =
-                                            Math.atan2(fft[i + 1].toDouble(), fft[i].toDouble())
+                                            atan2(fft[i + 1].toDouble(), fft[i].toDouble())
                                                 .toFloat()
                                     }
 
                                     magnitudes.map { it / maxMagnitude }
-                                    updateFrequency(magnitudes[23])
-                                    Log.d("R/T", "updatedFreq"+magnitudes[23].toString())
+
+                                    updateSpikes(magnitudes)
+                                    Log.d("R/T", "updateSpikes")
+
                                 } else {
                                     Log.d("R/T", "onWaveFormDataCapture null")
                                 }
                             }
                         },
-                        Visualizer.getMaxCaptureRate(),
-                        true,
+                        Visualizer.getMaxCaptureRate() / 2,
+                        false,
                         true
                     )
                     enabled = true
+                    Log.d("R/T", "end of try")
                 }
-            } catch (e: Exception) {
-                Log.d("R/T", "!!!!" + e.message.toString())
             }
-
-            magnitudesArray = FloatArray(captureSizeRange[1] / 2 + 1)
-
+        } catch (e: Exception) {
+            Log.d("R/T", "!!!!" + e.message.toString())
         }
+        Log.d("R/T", "////////////////////////// ***** end of the functionn *///////////*/*/*/*/*")
+        magnitudesArray = FloatArray(captureSizeRange[1] / 2 + 1)
     }
 
 
