@@ -17,6 +17,7 @@ class SingleViewTouchableMotionLayout(context: Context, attributeSet: AttributeS
     private val viewRect = Rect()
     private var touchStarted = false
     private var mStartTime: Long = 0
+
     init {
 
         setTransitionListener(object : MotionLayout.TransitionListener {
@@ -52,7 +53,7 @@ class SingleViewTouchableMotionLayout(context: Context, attributeSet: AttributeS
     }
 
     override fun onInterceptTouchEvent(event: MotionEvent?): Boolean {
-        if (event?.action == MotionEvent.ACTION_DOWN ) {
+        if (event?.action == MotionEvent.ACTION_DOWN) {
             mStartTime = event.eventTime;
         }
         if ((event?.eventTime?.minus(mStartTime)!! >= ViewConfiguration.getTapTimeout()) && event.action == MotionEvent.ACTION_MOVE) {

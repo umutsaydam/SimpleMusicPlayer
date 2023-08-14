@@ -71,7 +71,7 @@
         tools:text="Artist" />
 
     <com.musicplayer.mymusicplayer.WaveMusicView
-        android:id="@+id/test"
+        android:id="@+id/musicWave"
         android:elevation="10dp"
         android:layout_width="match_parent"
         android:layout_height="110dp"

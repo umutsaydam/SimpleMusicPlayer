@@ -12,6 +12,7 @@
         <OnSwipe
             motion:dragDirection="dragUp"
             motion:maxAcceleration="200"
+            app:touchAnchorSide="top"
             motion:touchRegionId="@id/playerBackground" />
 
         <KeyFrameSet>
@@ -91,6 +92,20 @@
                 app:framePosition="100"
                 app:motionTarget="@id/msDuration"/>
 
+            <KeyAttribute
+                android:alpha="0.0"
+                app:framePosition="0"
+                app:motionTarget="@id/musicWave"/>
+
+            <KeyAttribute
+                android:alpha="0.0"
+                app:framePosition="70"
+                app:motionTarget="@id/musicWave"/>
+
+            <KeyAttribute
+                android:alpha="1.0"
+                app:framePosition="100"
+                app:motionTarget="@id/musicWave"/>
         </KeyFrameSet>
 
     </Transition>

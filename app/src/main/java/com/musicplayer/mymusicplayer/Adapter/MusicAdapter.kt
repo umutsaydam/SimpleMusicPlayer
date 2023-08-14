@@ -55,6 +55,8 @@ class MusicAdapter(private val context: Context, private val listener: MusicClic
             playerInstance.setMusic(music)
             playerInstance.playOrStopMusic()
 
+
+
             lastSelectedMusicCardView = holder.cardViewMusic
         }
         holder.msMusic.text = music.title

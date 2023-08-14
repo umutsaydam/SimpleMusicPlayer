@@ -30,8 +30,8 @@ class WaveMusicView(context: Context, attrs: AttributeSet) : View(context, attrs
             val widthPerColumn = width.toFloat() / spike!!.size
             var x = width.toFloat() / 2
             var rX = width.toFloat() / 2
-            val y = 0f
-            Log.d("R/T", "cizildi.")
+
+            //Log.d("R/T", "cizildi.")
             for (i in spike!!.indices) {
                 if (i == 0) {
                     canvas.drawLine(x, spike!![i], x + widthPerColumn, spike!![i + 1], paint)

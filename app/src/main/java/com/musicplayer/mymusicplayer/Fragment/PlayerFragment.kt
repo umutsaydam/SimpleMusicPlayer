@@ -38,17 +38,47 @@ class PlayerFragment : Fragment(), Runnable {
         if (music == null) {
             Toast.makeText(context, "NULL", Toast.LENGTH_SHORT).show()
         } else {
-            if (MediaPlayerInstance.getMediaPlayer().isPlaying && VisualizerHelper.getVisualizer() != null){
+            if (mediaPlayer.isPlaying && VisualizerHelper.getVisualizer() != null){
                 VisualizerHelper.stopVisualizer()
                 VisualizerHelper.startVisualizer()
-                Log.d("R/T", "SAGLANDIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII   **************************")
+                Log.d("R/T", "SAGLANDIIIIIIIIIIIIIIIIIIIIIII   **************************")
             }
             setItems()
+        }
+
+        binding.prevImageView.setOnClickListener {
+            playerInstance.setPrevMusic()
+            startStopImgMusic()
+            resetVisualizer()
+            setItems()
+            Log.d("R/T","ONCEKIIIIIIIIIII")
+        }
+
+        binding.nextImageView.setOnClickListener {
+            playerInstance.setNextMusic()
+            startStopImgMusic()
+            resetVisualizer()
+            setItems()
+            Log.d("R/T","SONRAKIIIIIIIII")
         }
         return binding.root
     }
 
+    private fun resetVisualizer() {
+        VisualizerHelper.stopVisualizer()
+        VisualizerHelper.startVisualizer()
+    }
+
+    private fun startStopImgMusic(){
+        if (mediaPlayer.isPlaying) {
+            binding.playPauseImageView.setImageResource(R.drawable.ic_pause)
+        } else {
+            binding.playPauseImageView.setImageResource(R.drawable.ic_play)
+        }
+    }
+
     private fun setItems() {
+        music = playerInstance.getMusic()
         binding.audioName.text = music?.title
         binding.artistName.text = music?.artist
 
@@ -76,12 +106,8 @@ class PlayerFragment : Fragment(), Runnable {
         binding.playPauseLayout.setOnClickListener {
             Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show()
             MediaPlayerInstance.playStopMusic()
-
-            if (mediaPlayer.isPlaying) {
-                binding.playPauseImageView.setImageResource(R.drawable.ic_pause)
-            } else {
-                binding.playPauseImageView.setImageResource(R.drawable.ic_play)
-            }
+            startStopImgMusic()
+            resetVisualizer()
             setSeekBar()
         }
 

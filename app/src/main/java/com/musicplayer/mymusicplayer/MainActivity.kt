@@ -15,6 +15,7 @@ import com.musicplayer.mymusicplayer.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity(), MusicAdapter.MusicClickListener {
     private lateinit var binding: ActivityMainBinding
+    private val musicList = arrayListOf<Music>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,8 +71,6 @@ class MainActivity : AppCompatActivity(), MusicAdapter.MusicClickListener {
             null
         )
 
-        val musicList = arrayListOf<Music>()
-
         cursor?.use {
             while (it.moveToNext()) {
                 val id = it.getLong(it.getColumnIndexOrThrow(MediaStore.Audio.Media._ID))
@@ -96,6 +95,7 @@ class MainActivity : AppCompatActivity(), MusicAdapter.MusicClickListener {
         val bundle = Bundle().apply {
             putParcelable("music", music)
         }
+        MediaPlayerInstance.setMusicList(musicList)
         playerFragment.arguments = bundle
         supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, playerFragment)
             .commit()

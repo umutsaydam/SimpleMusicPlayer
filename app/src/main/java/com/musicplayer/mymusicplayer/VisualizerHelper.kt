@@ -38,7 +38,7 @@ object VisualizerHelper {
         return spike!!
     }
 
-    fun getFFT() {
+    private fun getFFT() {
         val captureSizeRange = Visualizer.getCaptureSizeRange()
         try {
             if (visualizer != null) {
