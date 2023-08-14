@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.musicplayer.mymusicplayer.MediaPlayerInstance
 import com.musicplayer.mymusicplayer.Model.Music
 import com.musicplayer.mymusicplayer.R
+import com.musicplayer.mymusicplayer.VisualizerHelper
 import com.musicplayer.mymusicplayer.databinding.FragmentPlayerBinding
 
 class PlayerFragment : Fragment(), Runnable {
@@ -37,8 +38,10 @@ class PlayerFragment : Fragment(), Runnable {
         if (music == null) {
             Toast.makeText(context, "NULL", Toast.LENGTH_SHORT).show()
         } else {
-            if (MediaPlayerInstance.getMediaPlayer().isPlaying){
-                Log.d("R/T", "SAGLANDIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+            if (MediaPlayerInstance.getMediaPlayer().isPlaying && VisualizerHelper.getVisualizer() != null){
+                VisualizerHelper.stopVisualizer()
+                VisualizerHelper.startVisualizer()
+                Log.d("R/T", "SAGLANDIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII   **************************")
             }
             setItems()
         }
