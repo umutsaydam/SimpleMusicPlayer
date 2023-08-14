@@ -8,6 +8,7 @@ import android.media.audiofx.Visualizer
 import android.util.AttributeSet
 import android.util.Log
 import android.view.View
+import androidx.core.content.ContextCompat
 import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.hypot
@@ -29,37 +30,38 @@ class WaveMusicView(context: Context, attrs: AttributeSet) : View(context, attrs
 
     private fun updateSpikes(floatArray: FloatArray) {
         spike = floatArray
-        Log.d("R/T", "updated spike")
+        //Log.d("R/T", "updated spike")
         invalidate()
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        canvas.drawColor(Color.BLACK)
+        canvas.drawColor(ContextCompat.getColor(context, R.color.wave_bg))
 
         if (mediaPlayer.isPlaying && spike != null) {
             val widthPerColumn = width.toFloat() / spike!!.size
             var x = width.toFloat() / 2
             var rX = width.toFloat() / 2
             val y = 0f
-            Log.d("R/T", "cizildi.")
+           // Log.d("R/T", "cizildi.")
             for (i in spike!!.indices) {
                 if (i == 0) {
-                    canvas.drawLine(x, y, x + widthPerColumn, spike!![i], paint)
-                    canvas.drawLine(rX, y, rX - widthPerColumn, spike!![i], paint)
-                } else {
-                    canvas.drawLine(x, spike!![i - 1], x + widthPerColumn, spike!![i], paint)
-                    canvas.drawLine(rX, spike!![i - 1], rX - widthPerColumn, spike!![i], paint)
+                    canvas.drawLine(x, spike!![i], x + widthPerColumn, spike!![i + 1], paint)
+                    canvas.drawLine(rX, spike!![i], rX - widthPerColumn, spike!![i + 1], paint)
+                } else if (i + 1 < spike!!.size) {
+                    canvas.drawLine(x, spike!![i], x + widthPerColumn, spike!![i + 1], paint)
+                    canvas.drawLine(rX, spike!![i], rX - widthPerColumn, spike!![i + 1], paint)
                 }
                 x += widthPerColumn
                 rX -= widthPerColumn
             }
-            //spike = null
         } else if (mediaPlayer.isPlaying && spike == null) {
             Log.d("R/T", "calisiyor ama spike null")
-        }else{
+        } else {
             Log.d("R/T", "player durdu!!!!!!")
             stopVisualizer()
+            spike = null
+            canvas.drawColor(Color.TRANSPARENT)
         }
 
         postInvalidateOnAnimation()
@@ -81,7 +83,7 @@ class WaveMusicView(context: Context, attrs: AttributeSet) : View(context, attrs
         val captureSizeRange = Visualizer.getCaptureSizeRange()
         try {
             if (visualizer != null) {
-                Log.d("R/T", "getFFT")
+               // Log.d("R/T", "getFFT")
                 visualizer = Visualizer(mediaPlayer.audioSessionId)
                 visualizer!!.captureSize
                 visualizer?.apply {

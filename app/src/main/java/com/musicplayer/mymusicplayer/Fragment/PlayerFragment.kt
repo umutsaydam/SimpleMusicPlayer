@@ -37,6 +37,9 @@ class PlayerFragment : Fragment(), Runnable {
         if (music == null) {
             Toast.makeText(context, "NULL", Toast.LENGTH_SHORT).show()
         } else {
+            if (MediaPlayerInstance.getMediaPlayer().isPlaying){
+                Log.d("R/T", "SAGLANDIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII")
+            }
             setItems()
         }
         return binding.root
@@ -96,12 +99,6 @@ class PlayerFragment : Fragment(), Runnable {
                 binding.seekBar.progress = currPosition
                 currPosition = mediaPlayer.currentPosition / 1000
                 activity?.runOnUiThread {
-                  /*  Log.d(
-                        "R/T",
-                        "calisti" + playerInstance.formatTime(
-                            playerInstance.getMusicCurrPosition().toLong()
-                        )
-                    )*/
                     binding.msCurrPosition.text =
                         playerInstance.formatTime(playerInstance.getMusicCurrPosition().toLong())
                 }

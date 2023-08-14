@@ -3,12 +3,9 @@ package com.musicplayer.mymusicplayer
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.media.MediaPlayer
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.musicplayer.mymusicplayer.Adapter.MusicAdapter
@@ -102,6 +99,5 @@ class MainActivity : AppCompatActivity(), MusicAdapter.MusicClickListener {
         playerFragment.arguments = bundle
         supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, playerFragment)
             .commit()
-
     }
 }
