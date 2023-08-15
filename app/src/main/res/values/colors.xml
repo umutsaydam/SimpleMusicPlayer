@@ -8,4 +8,11 @@
     <color name="selected_music">#2f3255</color>
     <color name="listed_music_sub_info">#4e507a</color>
     <color name="sub_info">#A3A3A3</color>
+    <color name="color1">#ed2300</color>
+    <color name="color2">#ff8e02</color>
+    <color name="color3">#fef400</color>
+    <color name="color4">#00f20f</color>
+    <color name="color5">#00dbdd</color>
+    <color name="color6">#0358ff</color>
+    <color name="color7">#603391</color>
 </resources>

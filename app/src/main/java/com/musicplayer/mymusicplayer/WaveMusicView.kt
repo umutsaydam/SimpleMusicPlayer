@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 class WaveMusicView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     private val paint = Paint()
     private var spike: FloatArray? = null
+    private var averageMagnitude: Float? = null
     private var mediaPlayer = MediaPlayerInstance.getMediaPlayer()
 
     init {
@@ -25,6 +26,7 @@ class WaveMusicView(context: Context, attrs: AttributeSet) : View(context, attrs
         canvas.drawColor(ContextCompat.getColor(context, R.color.wave_bg))
 
         spike = VisualizerHelper.getSpike()
+        setColor(VisualizerHelper.getAverageMagnitude())
 
         if (mediaPlayer.isPlaying && spike != null) {
             val widthPerColumn = width.toFloat() / spike!!.size
@@ -44,7 +46,7 @@ class WaveMusicView(context: Context, attrs: AttributeSet) : View(context, attrs
                 rX -= widthPerColumn
             }
         } else if (mediaPlayer.isPlaying && spike == null) {
-            Log.d("R/T", "calisiyor ama spike null")
+           // Log.d("R/T", "calisiyor ama spike null")
         } else {
             Log.d("R/T", "player durdu!!!!!!")
             VisualizerHelper.stopVisualizer()
@@ -52,5 +54,17 @@ class WaveMusicView(context: Context, attrs: AttributeSet) : View(context, attrs
             canvas.drawColor(Color.TRANSPARENT)
         }
         postInvalidateOnAnimation()
+    }
+
+    private fun setColor(averageMagnitude: Float?) {
+        paint.color = when(averageMagnitude!!){
+            in 0f..4.80f-> ContextCompat.getColor(context, R.color.color1)
+            in 4.81..5.10-> ContextCompat.getColor(context, R.color.color2)
+            in 5.11..5.30-> ContextCompat.getColor(context, R.color.color3)
+            in 5.31..5.80-> ContextCompat.getColor(context, R.color.color4)
+            in 5.81..6.00-> ContextCompat.getColor(context, R.color.color5)
+            in 6.01..7.00 -> ContextCompat.getColor(context, R.color.color6)
+            else -> ContextCompat.getColor(context, R.color.color7)
+        }
     }
 }

@@ -11,6 +11,7 @@ object VisualizerHelper {
     private var visualizer: Visualizer? = null
     private lateinit var magnitudesArray: FloatArray
     private val maxMagnitude = calculateMagnitude(128f, 128f)
+    private var averageMagnitude: Float? = null
     private var spike: FloatArray? = null
     private var mediaPlayer = MediaPlayerInstance.getMediaPlayer()
 
@@ -30,6 +31,17 @@ object VisualizerHelper {
         }
     }
 
+    private fun updateAverageMagnitude(average: Float){
+        averageMagnitude = average
+    }
+
+    fun getAverageMagnitude(): Float{
+        if (averageMagnitude == null){
+            return 0f
+        }
+        return averageMagnitude as Float
+    }
+
     private fun updateSpike(floatArray: FloatArray) {
         spike = floatArray
     }
@@ -42,7 +54,6 @@ object VisualizerHelper {
         val captureSizeRange = Visualizer.getCaptureSizeRange()
         try {
             if (visualizer != null) {
-                // Log.d("R/T", "getFFT")
                 visualizer = Visualizer(mediaPlayer.audioSessionId)
                 visualizer!!.captureSize
                 visualizer?.apply {
@@ -84,16 +95,15 @@ object VisualizerHelper {
                                     }
 
                                     magnitudes.map { it / maxMagnitude }
-
+                                    updateAverageMagnitude(magnitudes.sum()/magnitudes.size)
                                     updateSpike(magnitudes)
-                                    Log.d("R/T", "updateSpikes")
 
                                 } else {
                                     Log.d("R/T", "onWaveFormDataCapture null")
                                 }
                             }
                         },
-                        Visualizer.getMaxCaptureRate() / 2,
+                        Visualizer.getMaxCaptureRate()/2,
                         false,
                         true
                     )
