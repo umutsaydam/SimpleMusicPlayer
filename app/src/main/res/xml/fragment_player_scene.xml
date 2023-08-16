@@ -220,8 +220,8 @@
 
         <Constraint
             android:id="@+id/prevImageView"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_marginTop="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/playPauseLayout"
@@ -232,8 +232,8 @@
 
         <Constraint
             android:id="@+id/playPauseLayout"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             android:padding="0dp"
             android:layout_marginTop="5dp"
             app:layout_constraintBottom_toBottomOf="@+id/prevImageView"
@@ -245,8 +245,8 @@
 
         <Constraint
             android:id="@+id/nextImageView"
-            android:layout_width="44dp"
-            android:layout_height="44dp"
+            android:layout_width="85dp"
+            android:layout_height="85dp"
             android:layout_marginEnd="74dp"
             android:layout_marginTop="5dp"
             app:layout_constraintBottom_toBottomOf="@+id/playPauseLayout"
