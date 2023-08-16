@@ -20,7 +20,7 @@ class SingleViewTouchableMotionLayout(context: Context, attributeSet: AttributeS
 
     init {
 
-        setTransitionListener(object : MotionLayout.TransitionListener {
+        setTransitionListener(object : TransitionListener {
             override fun onTransitionTrigger(p0: MotionLayout?, p1: Int, p2: Boolean, p3: Float) {
 
             }
@@ -54,11 +54,11 @@ class SingleViewTouchableMotionLayout(context: Context, attributeSet: AttributeS
 
     override fun onInterceptTouchEvent(event: MotionEvent?): Boolean {
         if (event?.action == MotionEvent.ACTION_DOWN) {
-            mStartTime = event.eventTime;
+            mStartTime = event.eventTime
         }
         if ((event?.eventTime?.minus(mStartTime)!! >= ViewConfiguration.getTapTimeout()) && event.action == MotionEvent.ACTION_MOVE) {
             return super.onInterceptTouchEvent(event)
         }
-        return false;
+        return false
     }
 }

@@ -1,7 +1,6 @@
 package com.musicplayer.mymusicplayer
 
 import android.media.audiofx.Visualizer
-import android.util.Log
 import kotlin.math.abs
 import kotlin.math.atan2
 import kotlin.math.hypot
@@ -15,7 +14,7 @@ object VisualizerHelper {
     private var spike: FloatArray? = null
     private var mediaPlayer = MediaPlayerInstance.getMediaPlayer()
 
-    fun getVisualizer(): Visualizer?{
+    fun getVisualizer(): Visualizer? {
         return visualizer
     }
 
@@ -31,12 +30,12 @@ object VisualizerHelper {
         }
     }
 
-    private fun updateAverageMagnitude(average: Float){
+    private fun updateAverageMagnitude(average: Float) {
         averageMagnitude = average
     }
 
-    fun getAverageMagnitude(): Float{
-        if (averageMagnitude == null){
+    fun getAverageMagnitude(): Float {
+        if (averageMagnitude == null) {
             return 0f
         }
         return averageMagnitude as Float
@@ -46,7 +45,7 @@ object VisualizerHelper {
         spike = floatArray
     }
 
-    fun getSpike(): FloatArray{
+    fun getSpike(): FloatArray {
         return spike!!
     }
 
@@ -64,15 +63,14 @@ object VisualizerHelper {
                             override fun onWaveFormDataCapture(
                                 p0: Visualizer?,
                                 fft: ByteArray?,
-                                samplingRate: Int
+                                samplingRate: Int,
                             ) {
-                                Log.d("R/T", "onWaveFormDataCapture")
                             }
 
                             override fun onFftDataCapture(
                                 p0: Visualizer?,
                                 fft: ByteArray?,
-                                p2: Int
+                                p2: Int,
                             ) {
                                 if (fft != null) {
                                     val n: Int = fft.size
@@ -95,26 +93,22 @@ object VisualizerHelper {
                                     }
 
                                     magnitudes.map { it / maxMagnitude }
-                                    updateAverageMagnitude(magnitudes.sum()/magnitudes.size)
+                                    updateAverageMagnitude(magnitudes.sum() / magnitudes.size)
                                     updateSpike(magnitudes)
 
-                                } else {
-                                    Log.d("R/T", "onWaveFormDataCapture null")
                                 }
                             }
                         },
-                        Visualizer.getMaxCaptureRate()/2,
+                        Visualizer.getMaxCaptureRate() / 2,
                         false,
                         true
                     )
                     enabled = true
-                    Log.d("R/T", "end of try")
                 }
             }
         } catch (e: Exception) {
-            Log.d("R/T", "!!!!" + e.message.toString())
+            e.printStackTrace()
         }
-        Log.d("R/T", "////////////////////////// ***** end of the functionn *///////////*/*/*/*/*")
         magnitudesArray = FloatArray(captureSizeRange[1] / 2 + 1)
     }
 

@@ -1,7 +1,7 @@
 package com.musicplayer.mymusicplayer.Adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,13 +49,10 @@ class MusicAdapter(private val context: Context, private val listener: MusicClic
             }
 
             if (playerInstance.getMediaPlayer().isPlaying){
-                Log.d("R/T", "DURDURULDU /*/*/*/*/*/*/*/*/*")
                 playerInstance.getMediaPlayer().stop()
             }
             playerInstance.setMusic(music)
             playerInstance.playOrStopMusic()
-
-
 
             lastSelectedMusicCardView = holder.cardViewMusic
         }

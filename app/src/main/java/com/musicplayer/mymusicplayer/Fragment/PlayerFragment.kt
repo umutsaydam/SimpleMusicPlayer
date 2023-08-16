@@ -2,7 +2,6 @@ package com.musicplayer.mymusicplayer.Fragment
 
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,7 +24,7 @@ class PlayerFragment : Fragment(), Runnable {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentPlayerBinding.inflate(inflater, container, false)
 
@@ -41,7 +40,6 @@ class PlayerFragment : Fragment(), Runnable {
             if (mediaPlayer.isPlaying && VisualizerHelper.getVisualizer() != null){
                 VisualizerHelper.stopVisualizer()
                 VisualizerHelper.startVisualizer()
-                Log.d("R/T", "SAGLANDIIIIIIIIIIIIIIIIIIIIIII   **************************")
             }
             setItems()
         }
@@ -51,7 +49,6 @@ class PlayerFragment : Fragment(), Runnable {
             startStopImgMusic()
             resetVisualizer()
             setItems()
-            Log.d("R/T","ONCEKIIIIIIIIIII")
         }
 
         binding.nextImageView.setOnClickListener {
@@ -59,7 +56,6 @@ class PlayerFragment : Fragment(), Runnable {
             startStopImgMusic()
             resetVisualizer()
             setItems()
-            Log.d("R/T","SONRAKIIIIIIIII")
         }
         return binding.root
     }
@@ -104,7 +100,6 @@ class PlayerFragment : Fragment(), Runnable {
         binding.msDuration.text = playerInstance.formatTime(playerInstance.getMusicDuration())
 
         binding.playPauseLayout.setOnClickListener {
-            Toast.makeText(context, "Clicked", Toast.LENGTH_SHORT).show()
             MediaPlayerInstance.playStopMusic()
             startStopImgMusic()
             resetVisualizer()
@@ -131,12 +126,10 @@ class PlayerFragment : Fragment(), Runnable {
                     binding.msCurrPosition.text =
                         playerInstance.formatTime(playerInstance.getMusicCurrPosition().toLong())
                 }
-            } else {
-                Log.d("R/T", "durdu **")
             }
-            Log.d("R/T", "onProgressChanged $currPosition/$total **")
             Thread.sleep(1000)
         }
         binding.playPauseImageView.setImageResource(R.drawable.ic_play)
     }
+
 }

@@ -16,8 +16,7 @@ data class Music(
         parcel.readString()!!,
         parcel.readLong(),
         parcel.readString()!!
-    ) {
-    }
+    )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(id)

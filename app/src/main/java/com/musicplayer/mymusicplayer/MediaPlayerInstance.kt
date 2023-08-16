@@ -1,7 +1,6 @@
 package com.musicplayer.mymusicplayer
 
 import android.media.MediaPlayer
-import android.util.Log
 import com.musicplayer.mymusicplayer.Model.Music
 import java.lang.Exception
 import java.util.concurrent.TimeUnit
@@ -59,7 +58,6 @@ object MediaPlayerInstance {
 
     fun setPrevMusic() {
         val index = musicList.indexOf(music) - 1
-        Log.d("R/T", "ONCEKIIIII $index")
         if (index >= 0) {
             mediaPlayer.pause()
             music = musicList[index]
@@ -69,7 +67,6 @@ object MediaPlayerInstance {
 
     fun setNextMusic() {
         val index = musicList.indexOf(music) + 1
-        Log.d("R/T", "ONCEKIIIII $index")
         if (index < musicList.size) {
             mediaPlayer.pause()
             music = musicList[index]

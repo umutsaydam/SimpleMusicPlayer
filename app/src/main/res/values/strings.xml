@@ -1,5 +1,11 @@
 <resources>
-    <string name="app_name">My Music Player</string>
+    <string name="app_name">Simple Music Player</string>
     <string name="musics">Müzikler</string>
+    <string name="ic_img">ic_img</string>
+    <string name="_01_20">01:20</string>
+    <string name="_05_18">05:18</string>
+    <string name="ic_prev">ic_prev</string>
+    <string name="ic_play_stop">ic_play_stop</string>
+    <string name="ic_next">ic_next</string>
     <!-- TODO: Remove or change this placeholder text -->
 </resources>

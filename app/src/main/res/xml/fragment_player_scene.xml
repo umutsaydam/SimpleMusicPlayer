@@ -169,6 +169,20 @@
         </Constraint>
 
         <Constraint
+            android:id="@+id/musicWave"
+            android:elevation="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="3dp"
+            app:layout_constraintTop_toBottomOf="@+id/artistName"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/seekBar">
+
+        </Constraint>
+
+        <Constraint
             android:id="@+id/msCurrPosition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -206,8 +220,8 @@
 
         <Constraint
             android:id="@+id/prevImageView"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
             android:layout_marginTop="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/playPauseLayout"
@@ -231,8 +245,8 @@
 
         <Constraint
             android:id="@+id/nextImageView"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
             android:layout_marginEnd="74dp"
             android:layout_marginTop="5dp"
             app:layout_constraintBottom_toBottomOf="@+id/playPauseLayout"
@@ -305,6 +319,20 @@
         </Constraint>
 
         <Constraint
+            android:id="@+id/musicWave"
+            android:elevation="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="110dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="3dp"
+            app:layout_constraintTop_toBottomOf="@+id/artistName"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/seekBar">
+
+        </Constraint>
+
+        <Constraint
             android:id="@+id/msCurrPosition"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -341,9 +369,10 @@
 
         <Constraint
             android:id="@+id/prevImageView"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginEnd="10dp"
+            android:layout_width="55dp"
+            android:layout_height="100dp"
+            android:padding="10dp"
+            android:layout_marginEnd="5dp"
             app:layout_constraintBottom_toBottomOf="@+id/playPauseLayout"
             app:layout_constraintEnd_toStartOf="@id/playPauseLayout"
             app:layout_constraintTop_toTopOf="@+id/playPauseLayout">
@@ -352,10 +381,10 @@
 
         <Constraint
             android:id="@+id/playPauseLayout"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginEnd="10dp"
-            android:padding="3dp"
+            android:layout_width="65dp"
+            android:layout_height="100dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             app:layout_constraintBottom_toBottomOf="@+id/playerBackground"
             app:layout_constraintEnd_toStartOf="@+id/nextImageView"
             app:layout_constraintTop_toTopOf="@+id/playerBackground">
@@ -364,9 +393,9 @@
 
         <Constraint
             android:id="@+id/nextImageView"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginEnd="10dp"
+            android:layout_width="55dp"
+            android:layout_height="100dp"
+            android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/playPauseLayout"
             app:layout_constraintEnd_toEndOf="@id/playerBackground"
             app:layout_constraintTop_toTopOf="@+id/playPauseLayout">

@@ -3,9 +3,9 @@ package com.musicplayer.mymusicplayer
 
 import android.Manifest
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.musicplayer.mymusicplayer.Adapter.MusicAdapter
@@ -16,6 +16,7 @@ import com.musicplayer.mymusicplayer.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity(), MusicAdapter.MusicClickListener {
     private lateinit var binding: ActivityMainBinding
     private val musicList = arrayListOf<Music>()
+    private var adapter: MusicAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,10 +84,11 @@ class MainActivity : AppCompatActivity(), MusicAdapter.MusicClickListener {
                 val music = Music(id, title, artist, duration, path)
                 musicList.add(music)
             }
-            val adapter = MusicAdapter(this, this)
-            adapter.setMusicList(musicList)
+            adapter = MusicAdapter(this, this)
+            adapter!!.setMusicList(musicList)
             binding.recycler.setHasFixedSize(true)
             binding.recycler.adapter = adapter
+
         }
     }
 
@@ -100,4 +102,5 @@ class MainActivity : AppCompatActivity(), MusicAdapter.MusicClickListener {
         supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, playerFragment)
             .commit()
     }
+
 }
