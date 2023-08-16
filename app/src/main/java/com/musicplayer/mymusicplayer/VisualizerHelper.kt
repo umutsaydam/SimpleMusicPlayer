@@ -45,8 +45,8 @@ object VisualizerHelper {
         spike = floatArray
     }
 
-    fun getSpike(): FloatArray {
-        return spike!!
+    fun getSpike(): FloatArray? {
+        return spike
     }
 
     private fun getFFT() {
